@@ -55,6 +55,9 @@ class MyApp extends StatelessWidget {
             borderRadius: BorderRadius.circular(16),
             borderSide: BorderSide(color: Colors.transparent),
           ),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Color.fromRGBO(21, 184, 108, 1))
+          ),
           hintStyle: TextStyle(
             fontSize: 16,
             fontFamily: 'Plus Jakarta Sans',
