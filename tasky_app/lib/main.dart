@@ -65,6 +65,10 @@ class MyApp extends StatelessWidget {
         ),
         floatingActionButtonTheme: FloatingActionButtonThemeData(
           backgroundColor: Color.fromRGBO(21, 184, 108, 1),
+        ),
+        appBarTheme: AppBarTheme(
+          backgroundColor: Colors.black,
+          foregroundColor: Colors.white
         )
       ),
 

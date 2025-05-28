@@ -56,9 +56,7 @@ class StartupScreen extends StatelessWidget {
             ),
             TextField(
               decoration: InputDecoration(
-                border: OutlineInputBorder(),
                 hintText: 'e.g. Sarah Khalid',
-                
               ),
             ),
             SizedBox(height: 24,),
