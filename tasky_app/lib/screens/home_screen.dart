@@ -1,9 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tasky_app/constants.dart';
 import 'package:tasky_app/screens/new_task_screen.dart';
 
-class Homescreen extends StatelessWidget {
+
+class Homescreen extends StatefulWidget {
   const Homescreen({super.key});
+
+  @override
+  State<Homescreen> createState() => _HomescreenState();
+}
+
+class _HomescreenState extends State<Homescreen> {
+
+  String? userName=null;
+
+  @override
+  void initState(){
+    super.initState();
+    _getUserName();
+  }
+  _getUserName()async{
+    var prefs = await SharedPreferences.getInstance();
+    userName = prefs.getString(SharedPrefsKeys.userName);
+    setState(() {
+      
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +52,7 @@ class Homescreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Good Evening ,Usama ',
+                        'Good Evening ,$userName ',
                         style: Theme.of(context).textTheme.displayMedium,
                       ),
                       Text(
@@ -69,7 +93,7 @@ class Homescreen extends StatelessWidget {
         ),
       ),
 
-      floatingActionButton: Container(
+      floatingActionButton: SizedBox(
         width: 170,
         child: FloatingActionButton(
           shape: RoundedRectangleBorder(

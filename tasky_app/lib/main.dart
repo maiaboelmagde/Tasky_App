@@ -1,17 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tasky_app/constants.dart';
+import 'package:tasky_app/screens/home_screen.dart';
 import 'package:tasky_app/screens/startup_screen.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized(); 
+  final SharedPreferences pref = await SharedPreferences.getInstance();
+  //pref.clear();
+  String? userName = pref.getString(SharedPrefsKeys.userName);
+  runApp( MyApp(userName: userName,));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
+  const MyApp({super.key,this.userName});
+  final String? userName;
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: StartupScreen(),
+      home: userName == null? StartupScreen():Homescreen(),
       theme: ThemeData(
         fontFamily:'Plus Jakarta Sans',
         scaffoldBackgroundColor: Colors.black,
@@ -25,7 +32,6 @@ class MyApp extends StatelessWidget {
           ),
         ),
         textTheme: TextTheme(
-          
           displayLarge: TextStyle(
             fontWeight: FontWeight.w400,
             fontSize: 28,
@@ -53,9 +59,10 @@ class MyApp extends StatelessWidget {
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(16)),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(16),
-            borderSide: BorderSide(color: Colors.transparent),
+            borderSide: BorderSide.none,
           ),
           focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(16),
             borderSide: BorderSide(color: Color.fromRGBO(21, 184, 108, 1))
           ),
           hintStyle: TextStyle(
@@ -63,6 +70,7 @@ class MyApp extends StatelessWidget {
             fontFamily: 'Plus Jakarta Sans',
             color: Color.fromRGBO(109, 109, 109, 1),
           ),
+          
           filled: true,
           fillColor: Color.fromRGBO(40, 40, 40, 1),
         ),
@@ -72,6 +80,15 @@ class MyApp extends StatelessWidget {
         appBarTheme: AppBarTheme(
           backgroundColor: Colors.black,
           foregroundColor: Colors.white
+        ),
+
+        switchTheme: SwitchThemeData(
+          trackColor: WidgetStateProperty.resolveWith((status){
+            if(status.contains(WidgetState.selected)){
+              return (Color.fromRGBO(21, 184, 108, 1));
+            }
+            return null;
+          })
         )
       ),
 
