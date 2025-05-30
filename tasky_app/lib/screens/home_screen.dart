@@ -4,6 +4,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tasky_app/components/custom_tasks_list.dart';
 import 'package:tasky_app/constants.dart';
 import 'package:tasky_app/models/task_model.dart';
 import 'package:tasky_app/screens/new_task_screen.dart';
@@ -122,40 +123,7 @@ class _HomescreenState extends State<Homescreen> {
             Text('My Tasks', style: Theme.of(context).textTheme.displayLarge),
             SizedBox(
               height: 300,
-              child: ListView.builder(
-                itemCount: myTasks.length,
-                itemBuilder: ((context, indx) {
-                  return Container(
-                    margin: EdgeInsets.symmetric(vertical: 4),
-                    padding: EdgeInsets.only(right: 12, left: 4),
-                    decoration: BoxDecoration(
-                      color: Color.fromRGBO(40, 40, 40, 1),
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: Row(
-                      children: [
-                        Checkbox(value: false, onChanged: (value) {}),
-                        Spacer(),
-                        Column(
-                          children: [
-                            Text(
-                              myTasks[indx].taskTitle,
-                              style: Theme.of(context).textTheme.displayMedium,
-                            ),
-                            Text(
-                              myTasks[indx].taskDescription,
-                              style: Theme.of(context).textTheme.bodySmall,
-                            ),
-                          ],
-                        ),
-                        Spacer(),
-
-                        Icon(Icons.more_vert, color: Colors.white),
-                      ],
-                    ),
-                  );
-                }),
-              ),
+              child: CustomTasksList(myTasks: myTasks),
             ),
           ],
         ),
@@ -195,3 +163,4 @@ class _HomescreenState extends State<Homescreen> {
     );
   }
 }
+
