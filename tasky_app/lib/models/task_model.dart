@@ -3,12 +3,14 @@ class TaskModel {
   String taskTitle;
   String taskDescription;
   bool isHighPriority;
+  bool isCompleted;
 
   TaskModel({
     required this.id,
     required this.taskTitle,
     required this.taskDescription,
     required this.isHighPriority,
+    required this.isCompleted
   });
 
   factory TaskModel.fromMap(Map<String, dynamic> dataMap) {
@@ -17,12 +19,13 @@ class TaskModel {
       taskTitle: dataMap['taskTitle'],
       taskDescription: dataMap['taskDescription'],
       isHighPriority: dataMap['isHighPriority'],
+      isCompleted: dataMap['isCompleted']
     );
   }
 
   @override
   String toString() {
-    return 'TaskModel{id: $id, title: $taskTitle, description: $taskDescription, isHighPriority: $isHighPriority}';
+    return 'TaskModel{id: $id, title: $taskTitle, description: $taskDescription, isHighPriority: $isHighPriority, isCompleted: $isCompleted }';
   }
 
   Map<String, dynamic> toMap() {
@@ -31,6 +34,7 @@ class TaskModel {
       'taskTitle': taskTitle,
       'taskDescription': taskDescription,
       'isHighPriority': isHighPriority,
+      'isCompleted':isCompleted
     };
   }
 }

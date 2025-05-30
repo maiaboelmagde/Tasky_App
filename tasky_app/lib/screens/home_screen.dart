@@ -18,6 +18,7 @@ class Homescreen extends StatefulWidget {
 class _HomescreenState extends State<Homescreen> {
   String? userName;
   List<TaskModel> myTasks = [];
+  double completedTasksPercentage = 0;
 
   @override
   void initState() {
@@ -37,12 +38,16 @@ class _HomescreenState extends State<Homescreen> {
       setState(() {
         myTasks = tasksDecoded.map((task) => TaskModel.fromMap(task)).toList();
       });
-      log(myTasks.toString());
-
-      setState(() {});
     }
+
+    _calculateCompletedPercentage();
   }
 
+
+  _calculateCompletedPercentage(){
+    int totalCompletedTasks = myTasks.where((task)=>task.isCompleted == true).length;
+    completedTasksPercentage = (totalCompletedTasks/myTasks.length)*100;
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -123,6 +128,7 @@ class _HomescreenState extends State<Homescreen> {
 
             Text('My Tasks', style: Theme.of(context).textTheme.displayLarge),
             CustomTasksList(myTasks: myTasks),
+            SizedBox(height: 55,)
           ],
         ),
       ),

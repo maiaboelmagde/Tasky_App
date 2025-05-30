@@ -94,6 +94,7 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
                             taskTitle: _titleController.text,
                             taskDescription: _descController.text,
                             isHighPriority: isHighPtiority,
+                            isCompleted:false
                           );
 
                           myTasks.add(

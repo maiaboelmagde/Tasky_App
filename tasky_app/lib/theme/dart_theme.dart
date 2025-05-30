@@ -56,6 +56,14 @@ ThemeData darkTheme = ThemeData(
       return null;
     }),
   ),
+  checkboxTheme: CheckboxThemeData(
+    fillColor: WidgetStateProperty.resolveWith((status){
+      if(status.contains(WidgetState.selected)){
+        return Color.fromRGBO(21, 184, 108, 1);
+      }
+      return null;
+    }),
+  ),
   bottomNavigationBarTheme: BottomNavigationBarThemeData(
     backgroundColor: Color.fromRGBO(24, 24, 24, 1),
     selectedItemColor: Color.fromRGBO(21, 184, 108, 1),
