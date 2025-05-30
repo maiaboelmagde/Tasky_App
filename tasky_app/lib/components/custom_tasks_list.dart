@@ -1,22 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:tasky_app/models/task_model.dart';
 
-
 class CustomTasksList extends StatelessWidget {
-  const CustomTasksList({
-    super.key,
-    required this.myTasks,
-  });
+  const CustomTasksList({super.key, required this.myTasks});
 
   final List<TaskModel> myTasks;
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
+    return ListView.separated(
+      physics: NeverScrollableScrollPhysics(),
+      shrinkWrap: true,
       itemCount: myTasks.length,
       itemBuilder: ((context, indx) {
         return Container(
-          margin: EdgeInsets.symmetric(vertical: 4),
           padding: EdgeInsets.only(right: 12, left: 4),
           decoration: BoxDecoration(
             color: Color.fromRGBO(40, 40, 40, 1),
@@ -39,12 +36,15 @@ class CustomTasksList extends StatelessWidget {
                 ],
               ),
               Spacer(),
-    
+
               Icon(Icons.more_vert, color: Colors.white),
             ],
           ),
         );
       }),
+      separatorBuilder: (BuildContext context, int index) {
+        return SizedBox(height: 8);
+      },
     );
   }
 }

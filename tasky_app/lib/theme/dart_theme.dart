@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-var darkTheme = ThemeData(
+ThemeData darkTheme = ThemeData(
   fontFamily: 'Plus Jakarta Sans',
   scaffoldBackgroundColor: Colors.black,
   splashColor: Colors.black,
