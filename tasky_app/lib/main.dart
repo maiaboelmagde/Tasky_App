@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tasky_app/constants.dart';
-import 'package:tasky_app/screens/home_screen.dart';
+import 'package:tasky_app/screens/main_screen.dart';
 import 'package:tasky_app/screens/startup_screen.dart';
 
 void main() async{
@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: userName == null? StartupScreen():Homescreen(),
+      home: userName == null? StartupScreen():MainScreen(),
       theme: ThemeData(
         fontFamily:'Plus Jakarta Sans',
         scaffoldBackgroundColor: Colors.black,
@@ -89,7 +89,14 @@ class MyApp extends StatelessWidget {
             }
             return null;
           })
+        ),
+        bottomNavigationBarTheme:BottomNavigationBarThemeData(
+          backgroundColor: Color.fromRGBO(24, 24, 24, 1),
+          selectedItemColor: Color.fromRGBO(21, 184, 108, 1),
+          unselectedItemColor: Colors.white
+
         )
+
       ),
 
       debugShowCheckedModeBanner: false,

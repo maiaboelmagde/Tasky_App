@@ -8,7 +8,6 @@ import 'package:tasky_app/constants.dart';
 import 'package:tasky_app/models/task_model.dart';
 import 'package:tasky_app/screens/new_task_screen.dart';
 
-
 class Homescreen extends StatefulWidget {
   const Homescreen({super.key});
 
@@ -17,41 +16,38 @@ class Homescreen extends StatefulWidget {
 }
 
 class _HomescreenState extends State<Homescreen> {
-
   String? userName;
   List<TaskModel> myTasks = [];
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
     _getUserNameAndTasks();
   }
-  _getUserNameAndTasks()async{
+
+  _getUserNameAndTasks() async {
+    myTasks = [];
     var prefs = await SharedPreferences.getInstance();
+    //prefs.clear();
     userName = prefs.getString(SharedPrefsKeys.userName);
     String? tasks = prefs.getString(SharedPrefsKeys.tasksList);
-    if(tasks != null){
-
+    if (tasks != null) {
       for (var task in jsonDecode(tasks)) {
         myTasks.add(TaskModel.fromMap(task));
       }
     }
     log(myTasks.toString());
-    
-    setState(() {
-      
-    });
-  }
 
-  
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        child: ListView(
+          
           children: [
             SizedBox(height: 30),
             Row(
@@ -105,6 +101,62 @@ class _HomescreenState extends State<Homescreen> {
                 SvgPicture.asset('assets/images/waving.svg'),
               ],
             ),
+            Container(
+              height: 80,
+              margin: EdgeInsets.symmetric(vertical: 4),
+                    padding: EdgeInsets.only(right: 12, left: 4),
+                    decoration: BoxDecoration(
+                      color: Color.fromRGBO(40, 40, 40, 1),
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+            ),Container(
+              height: 150,
+              margin: EdgeInsets.symmetric(vertical: 4),
+                    padding: EdgeInsets.only(right: 12, left: 4),
+                    decoration: BoxDecoration(
+                      color: Color.fromRGBO(40, 40, 40, 1),
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+            ),
+
+            Text('My Tasks', style: Theme.of(context).textTheme.displayLarge),
+            SizedBox(
+              height: 300,
+              child: ListView.builder(
+                itemCount: myTasks.length,
+                itemBuilder: ((context, indx) {
+                  return Container(
+                    margin: EdgeInsets.symmetric(vertical: 4),
+                    padding: EdgeInsets.only(right: 12, left: 4),
+                    decoration: BoxDecoration(
+                      color: Color.fromRGBO(40, 40, 40, 1),
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: Row(
+                      children: [
+                        Checkbox(value: false, onChanged: (value) {}),
+                        Spacer(),
+                        Column(
+                          children: [
+                            Text(
+                              myTasks[indx].taskTitle,
+                              style: Theme.of(context).textTheme.displayMedium,
+                            ),
+                            Text(
+                              myTasks[indx].taskDescription,
+                              style: Theme.of(context).textTheme.bodySmall,
+                            ),
+                          ],
+                        ),
+                        Spacer(),
+
+                        Icon(Icons.more_vert, color: Colors.white),
+                      ],
+                    ),
+                  );
+                }),
+              ),
+            ),
           ],
         ),
       ),
@@ -127,8 +179,8 @@ class _HomescreenState extends State<Homescreen> {
               ],
             ),
           ),
-          onPressed: () {
-            Navigator.push(
+          onPressed: () async{
+            await Navigator.push(
               context,
               MaterialPageRoute(
                 builder: (context) {
@@ -136,6 +188,7 @@ class _HomescreenState extends State<Homescreen> {
                 },
               ),
             );
+            _getUserNameAndTasks();
           },
         ),
       ),

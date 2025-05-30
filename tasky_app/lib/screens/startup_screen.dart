@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tasky_app/components/custom_text_form_field.dart';
 import 'package:tasky_app/constants.dart';
-import 'package:tasky_app/screens/home_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tasky_app/screens/main_screen.dart';
 
 class StartupScreen extends StatelessWidget {
   StartupScreen({super.key});
@@ -85,7 +85,7 @@ class StartupScreen extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                           builder: (context) {
-                            return Homescreen();
+                            return MainScreen();
                           },
                         ),
                       );
