@@ -1,5 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tasky_app/components/custom_text_form_field.dart';
+import 'package:tasky_app/constants.dart';
+import 'package:tasky_app/models/task_model.dart';
 
 class NewTaskScreen extends StatefulWidget {
   const NewTaskScreen({super.key});
@@ -9,7 +14,7 @@ class NewTaskScreen extends StatefulWidget {
 }
 
 class _NewTaskScreenState extends State<NewTaskScreen> {
-  bool isHighPtiority = false;
+  bool isHighPtiority = true;
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _descController = TextEditingController();
@@ -39,12 +44,13 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
                       return null;
                     },
                   ),
-                        
+
                   SizedBox(height: 20),
-                        
+
                   CustomTextFormField(
                     title: 'Task Description ',
-                    hintText: 'Finish onboarding UI and hand off to devs by Thursday.',
+                    hintText:
+                        'Finish onboarding UI and hand off to devs by Thursday.',
                     controller: _descController,
                     maxLines: 7,
                   ),
@@ -66,23 +72,46 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
                       ),
                     ],
                   ),
-                        
+
                   Spacer(flex: 1),
                   Container(
                     width: double.infinity,
                     child: ElevatedButton.icon(
-                      onPressed: () {
+                      onPressed: () async {
                         if (_formKey.currentState?.validate() ?? false) {
+                          SharedPreferences pref =
+                              await SharedPreferences.getInstance();
+                          String? localTasks = pref.getString(
+                            SharedPrefsKeys.tasksList,
+                          );
+                          List<dynamic> myTasks = [];
+                          if (localTasks != null) {
+                            myTasks = jsonDecode(localTasks);
+                          }
 
-                        }else{
+                          TaskModel newTask = TaskModel(
+                            id: myTasks.length + 1,
+                            taskTitle: _titleController.text,
+                            taskDescription: _descController.text,
+                            isHighPriority: isHighPtiority,
+                          );
+
+                          myTasks.add(
+                            newTask.toMap()
+                          );
+                          
+                          pref.setString(SharedPrefsKeys.tasksList, jsonEncode(myTasks));
+                          Navigator.pop(context);
+
                           _titleController.text = '';
                           _descController.text = '';
-                        }
+                        } else {}
                       },
                       label: Text('Add Task'),
                       icon: Icon(Icons.add),
                     ),
                   ),
+                  Spacer(flex: 1),
                 ],
               ),
             ),

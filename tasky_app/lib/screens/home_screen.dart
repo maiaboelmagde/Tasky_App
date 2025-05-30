@@ -1,7 +1,11 @@
+import 'dart:convert';
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tasky_app/constants.dart';
+import 'package:tasky_app/models/task_model.dart';
 import 'package:tasky_app/screens/new_task_screen.dart';
 
 
@@ -15,19 +19,31 @@ class Homescreen extends StatefulWidget {
 class _HomescreenState extends State<Homescreen> {
 
   String? userName;
+  List<TaskModel> myTasks = [];
 
   @override
   void initState(){
     super.initState();
-    _getUserName();
+    _getUserNameAndTasks();
   }
-  _getUserName()async{
+  _getUserNameAndTasks()async{
     var prefs = await SharedPreferences.getInstance();
     userName = prefs.getString(SharedPrefsKeys.userName);
+    String? tasks = prefs.getString(SharedPrefsKeys.tasksList);
+    if(tasks != null){
+
+      for (var task in jsonDecode(tasks)) {
+        myTasks.add(TaskModel.fromMap(task));
+      }
+    }
+    log(myTasks.toString());
+    
     setState(() {
       
     });
   }
+
+  
 
   @override
   Widget build(BuildContext context) {
