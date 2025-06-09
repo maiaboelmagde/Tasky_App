@@ -24,6 +24,7 @@ ThemeData darkTheme = ThemeData(
     displayMedium: TextStyle(fontSize: 16, color: Colors.white),
     displaySmall: TextStyle(fontSize: 14, color: Colors.white),
     bodySmall: TextStyle(fontSize: 14, color: Color.fromRGBO(198, 198, 198, 1)),
+        titleMedium: TextStyle(fontSize: 20, color: Colors.white),
     headlineLarge: TextStyle(fontSize: 32, color: Colors.white),
   ),
   inputDecorationTheme: InputDecorationTheme(

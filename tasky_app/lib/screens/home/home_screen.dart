@@ -7,6 +7,8 @@ import 'package:tasky_app/models/task_model.dart';
 import 'package:tasky_app/screens/home/components/achieved_tasks_widget.dart';
 import 'package:tasky_app/screens/new_task_screen.dart';
 import 'package:tasky_app/services/preferences_manager.dart';
+import 'package:tasky_app/services/user_controller.dart';
+import 'package:tasky_app/theme/theme_controller.dart';
 
 class Homescreen extends StatefulWidget {
   const Homescreen({super.key});
@@ -16,7 +18,6 @@ class Homescreen extends StatefulWidget {
 }
 
 class _HomescreenState extends State<Homescreen> {
-  String? userName;
   List<TaskModel> myTasks = [];
   int totalTask =0;
   int totalCompletedTasks=0;
@@ -31,8 +32,6 @@ class _HomescreenState extends State<Homescreen> {
   _getUserNameAndTasks() async {
     myTasks = [];
     PreferencesManager preferencesManager = PreferencesManager();
-    //userName
-    userName = preferencesManager.getString(StorageKey.userName);
     //tasks
     String? tasks = preferencesManager.getString(StorageKey.tasksList);
     if (tasks != null) {
@@ -72,26 +71,48 @@ class _HomescreenState extends State<Homescreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        'Good Evening ,$userName ',
-                        style: Theme.of(context).textTheme.displayMedium,
+                      ValueListenableBuilder(
+                        valueListenable: UserController.userNameNotifier,
+                        builder: (_, value, _) {
+                          return Text(
+                            'Good Evening ,$value ',
+                            style: Theme.of(context).textTheme.displayMedium,
+                          );
+                        }
                       ),
-                      Text(
-                        'One task at a time.One step closer.',
-                        style: Theme.of(context).textTheme.bodySmall,
+                      ValueListenableBuilder(
+                        valueListenable: UserController.motifationQuote,
+                        builder: (_, value, _) {
+                          return Text(
+                            value,
+                            style: Theme.of(context).textTheme.bodySmall,
+                          );
+                        }
                       ),
                     ],
                   ),
                 ),
                 Spacer(flex: 1),
-                Container(
-                  width: 34,
-                  height: 34,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(100),
-                    color: Color.fromRGBO(40, 40, 40, 1),
+                GestureDetector(
+                  onTap: () => ThemeController.toggleTheme(),
+                  child: Container(
+                    width: 34,
+                    height: 34,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(100),
+                      color: Theme.of(context).colorScheme.primaryContainer,
+                    ),
+                    child: 
+                    ValueListenableBuilder(
+                      valueListenable: ThemeController.themeNotifier,
+                      builder: (context, value, child) {
+                        if(ThemeController.isDark()) {
+                          return Image.asset('assets/images/sun.png');
+                        }
+                        return Icon(Icons.dark_mode_outlined);
+                      }
+                    ),
                   ),
-                  child: Image.asset('assets/images/sun.png'),
                 ),
               ],
             ),
@@ -116,7 +137,7 @@ class _HomescreenState extends State<Homescreen> {
               margin: EdgeInsets.symmetric(vertical: 4),
               padding: EdgeInsets.only(right: 12, left: 4),
               decoration: BoxDecoration(
-                color: Color.fromRGBO(40, 40, 40, 1),
+                color: Theme.of(context).colorScheme.primaryContainer,
                 borderRadius: BorderRadius.circular(20),
               ),
             ),
@@ -131,17 +152,13 @@ class _HomescreenState extends State<Homescreen> {
       floatingActionButton: SizedBox(
         width: 170,
         child: FloatingActionButton(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(100),
-          ),
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15),
             child: Row(
               children: [
-                Icon(Icons.add, color: Colors.white),
+                Icon(Icons.add),
                 Text(
                   'Add New Task',
-                  style: Theme.of(context).textTheme.displaySmall,
                 ),
               ],
             ),

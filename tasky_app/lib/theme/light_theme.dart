@@ -24,6 +24,7 @@ ThemeData lightTheme = ThemeData(
     ),
     displayMedium: TextStyle(fontSize: 16, color: Color(0xFF161F1B)),
     displaySmall: TextStyle(fontSize: 14, color: Color(0xFF161F1B)),
+    titleMedium: TextStyle(fontSize: 20, color: Color(0xFF161F1B)),
     bodySmall: TextStyle(fontSize: 14, color: Color(0xFF6A6A6A)),
     headlineLarge: TextStyle(fontSize: 32, color: Color(0xFF161F1B)),
   ),
@@ -47,7 +48,8 @@ ThemeData lightTheme = ThemeData(
   ),
   floatingActionButtonTheme: FloatingActionButtonThemeData(
     backgroundColor: Color(0xFF15B86C),
-    foregroundColor:Colors.black
+    foregroundColor: Colors.white,
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
   ),
   appBarTheme: AppBarTheme(
     backgroundColor: Color(0xFFF6F7F9),
@@ -62,8 +64,8 @@ ThemeData lightTheme = ThemeData(
     }),
   ),
   checkboxTheme: CheckboxThemeData(
-    fillColor: WidgetStateProperty.resolveWith((status){
-      if(status.contains(WidgetState.selected)){
+    fillColor: WidgetStateProperty.resolveWith((status) {
+      if (status.contains(WidgetState.selected)) {
         return Color(0xFF15B86C);
       }
       return null;

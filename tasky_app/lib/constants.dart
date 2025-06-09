@@ -1,5 +1,7 @@
 class StorageKey {
-  static const userName = 'TaskyUserName';
-  static const tasksList='TasksList';
-  static const theme ='theme';
+  static const String userName = 'TaskyUserName';
+  static const String tasksList='TasksList';
+  static const String theme ='theme';
+  static const String motivationQuote='motivationQuote';
+  static const String userImage = 'userImage';
 }

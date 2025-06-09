@@ -13,6 +13,8 @@ void main() async{
   await pref.init();
   //pref.clear();
   String? userName = pref.getString(StorageKey.userName);
+  ThemeController themeController = ThemeController();
+  themeController.init();
   runApp( MyApp(userName: userName,));
 }
 
@@ -28,7 +30,6 @@ class MyApp extends StatelessWidget {
         return MaterialApp(
           home: userName == null? StartupScreen():MainScreen(),
           themeMode: value,
-          //themeMode: ThemeMode.light,
           theme: lightTheme,
           darkTheme: darkTheme,
           debugShowCheckedModeBanner: false,

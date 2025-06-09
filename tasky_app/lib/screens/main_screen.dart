@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tasky_app/screens/completed_screen.dart';
 import 'package:tasky_app/screens/home/home_screen.dart';
-import 'package:tasky_app/screens/profile_screen.dart';
+import 'package:tasky_app/screens/profile/profile_screen.dart';
 import 'package:tasky_app/screens/to_do_screen.dart';
 
 class MainScreen extends StatefulWidget {
