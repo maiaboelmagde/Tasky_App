@@ -29,7 +29,7 @@ class _CompletedScreenState extends State<CompletedScreen> {
 
     PreferencesManager preferencesManager = PreferencesManager();
     //tasks
-    String? tasks = preferencesManager.getString(SharedPrefsKeys.tasksList);
+    String? tasks = preferencesManager.getString(StorageKey.tasksList);
     if (tasks != null) {
       final tasksDecoded = jsonDecode(tasks) as List<dynamic>;
       setState(() {
