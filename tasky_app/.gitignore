@@ -44,4 +44,5 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 
-home_screen.dart
+
+tasky_app/lib/main.dart

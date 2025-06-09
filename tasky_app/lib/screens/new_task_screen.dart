@@ -82,7 +82,7 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
                           SharedPreferences pref =
                               await SharedPreferences.getInstance();
                           String? localTasks = pref.getString(
-                            SharedPrefsKeys.tasksList,
+                            StorageKey.tasksList,
                           );
                           List<dynamic> myTasks = [];
                           if (localTasks != null) {
@@ -101,7 +101,7 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
                             newTask.toMap()
                           );
                           
-                          pref.setString(SharedPrefsKeys.tasksList, jsonEncode(myTasks));
+                          pref.setString(StorageKey.tasksList, jsonEncode(myTasks));
                           Navigator.pop(context);
 
                           _titleController.text = '';

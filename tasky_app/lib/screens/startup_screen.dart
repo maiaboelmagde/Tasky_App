@@ -78,7 +78,7 @@ class StartupScreen extends StatelessWidget {
                     if (_formKey.currentState!.validate()) {
                       final prefs = await SharedPreferences.getInstance();
                       await prefs.setString(
-                        SharedPrefsKeys.userName,
+                        StorageKey.userName,
                         _nameController.text,
                       );
                       Navigator.pushReplacement(
