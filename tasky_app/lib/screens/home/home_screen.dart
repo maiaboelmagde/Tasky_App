@@ -1,10 +1,10 @@
 import 'dart:convert';
-import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tasky_app/components/custom_tasks_list.dart';
 import 'package:tasky_app/constants.dart';
 import 'package:tasky_app/models/task_model.dart';
+import 'package:tasky_app/screens/home/components/achieved_tasks_widget.dart';
 import 'package:tasky_app/screens/new_task_screen.dart';
 import 'package:tasky_app/services/preferences_manager.dart';
 
@@ -18,6 +18,8 @@ class Homescreen extends StatefulWidget {
 class _HomescreenState extends State<Homescreen> {
   String? userName;
   List<TaskModel> myTasks = [];
+  int totalTask =0;
+  int totalCompletedTasks=0;
   double completedTasksPercentage = 0;
 
   @override
@@ -30,9 +32,9 @@ class _HomescreenState extends State<Homescreen> {
     myTasks = [];
     PreferencesManager preferencesManager = PreferencesManager();
     //userName
-    userName = preferencesManager.getString(SharedPrefsKeys.userName);
+    userName = preferencesManager.getString(StorageKey.userName);
     //tasks
-    String? tasks = preferencesManager.getString(SharedPrefsKeys.tasksList);
+    String? tasks = preferencesManager.getString(StorageKey.tasksList);
     if (tasks != null) {
       final tasksDecoded = jsonDecode(tasks) as List<dynamic>;
       setState(() {
@@ -45,8 +47,9 @@ class _HomescreenState extends State<Homescreen> {
 
 
   _calculateCompletedPercentage(){
-    int totalCompletedTasks = myTasks.where((task)=>task.isCompleted == true).length;
-    completedTasksPercentage = (totalCompletedTasks/myTasks.length)*100;
+    totalTask = myTasks.length;
+    totalCompletedTasks = myTasks.where((task)=>task.isCompleted == true).length;
+    completedTasksPercentage = (totalCompletedTasks/totalTask);
   }
   @override
   Widget build(BuildContext context) {
@@ -107,15 +110,7 @@ class _HomescreenState extends State<Homescreen> {
                 SvgPicture.asset('assets/images/waving.svg'),
               ],
             ),
-            Container(
-              height: 80,
-              margin: EdgeInsets.symmetric(vertical: 4),
-              padding: EdgeInsets.only(right: 12, left: 4),
-              decoration: BoxDecoration(
-                color: Color.fromRGBO(40, 40, 40, 1),
-                borderRadius: BorderRadius.circular(20),
-              ),
-            ),
+            AchievedTasksWidget(totalDoneTasks: totalCompletedTasks, totalTask: totalTask, percent: completedTasksPercentage),
             Container(
               height: 150,
               margin: EdgeInsets.symmetric(vertical: 4),
