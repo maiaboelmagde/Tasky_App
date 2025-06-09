@@ -4,13 +4,15 @@ import 'package:tasky_app/screens/main_screen.dart';
 import 'package:tasky_app/screens/startup_screen.dart';
 import 'package:tasky_app/services/preferences_manager.dart';
 import 'package:tasky_app/theme/dart_theme.dart';
+import 'package:tasky_app/theme/light_theme.dart';
+import 'package:tasky_app/theme/theme_controller.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized(); 
   PreferencesManager pref = PreferencesManager();
   await pref.init();
   //pref.clear();
-  String? userName = pref.getString(SharedPrefsKeys.userName);
+  String? userName = pref.getString(StorageKey.userName);
   runApp( MyApp(userName: userName,));
 }
 
@@ -20,11 +22,17 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     
-    return MaterialApp(
-      home: userName == null? StartupScreen():MainScreen(),
-      theme: darkTheme,
-
-      debugShowCheckedModeBanner: false,
+    return ValueListenableBuilder(
+      valueListenable: ThemeController.themeNotifier,
+      builder: (_, value, _) {
+        return MaterialApp(
+          home: userName == null? StartupScreen():MainScreen(),
+          themeMode: value,
+          theme: lightTheme,
+          darkTheme: darkTheme,
+          debugShowCheckedModeBanner: false,
+        );
+      }
     );
   }
 }

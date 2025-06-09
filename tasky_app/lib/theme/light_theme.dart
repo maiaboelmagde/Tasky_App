@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 
-ThemeData darkTheme = ThemeData(
-  brightness: Brightness.dark,
+ThemeData lightTheme = ThemeData(
+  useMaterial3: true,
+  brightness: Brightness.light,
   fontFamily: 'Plus Jakarta Sans',
-  scaffoldBackgroundColor: Colors.black,
-  splashColor: Colors.black,
-  colorScheme: ColorScheme.dark(
-    primaryContainer: Color(0xFF282828),
-    secondary: Color(0XFFC6C6C6),
+  scaffoldBackgroundColor: Color(0xFFECEDEF),
+  splashColor: Color(0xFFF6F7F9),
+  colorScheme: ColorScheme.light(
+    primaryContainer: Colors.white,
+    secondary: Color(0xFF3A4640),
   ),
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ButtonStyle(
-      backgroundColor: WidgetStatePropertyAll(Color.fromRGBO(21, 184, 108, 1)),
+      backgroundColor: WidgetStatePropertyAll(Color(0xFF15B86C)),
       foregroundColor: WidgetStatePropertyAll(Colors.white),
     ),
   ),
@@ -19,12 +20,12 @@ ThemeData darkTheme = ThemeData(
     displayLarge: TextStyle(
       fontWeight: FontWeight.w400,
       fontSize: 28,
-      color: Colors.white,
+      color: Color(0xFF161F1B),
     ),
-    displayMedium: TextStyle(fontSize: 16, color: Colors.white),
-    displaySmall: TextStyle(fontSize: 14, color: Colors.white),
-    bodySmall: TextStyle(fontSize: 14, color: Color.fromRGBO(198, 198, 198, 1)),
-    headlineLarge: TextStyle(fontSize: 32, color: Colors.white),
+    displayMedium: TextStyle(fontSize: 16, color: Color(0xFF161F1B)),
+    displaySmall: TextStyle(fontSize: 14, color: Color(0xFF161F1B)),
+    bodySmall: TextStyle(fontSize: 14, color: Color(0xFF6A6A6A)),
+    headlineLarge: TextStyle(fontSize: 32, color: Color(0xFF161F1B)),
   ),
   inputDecorationTheme: InputDecorationTheme(
     border: OutlineInputBorder(borderRadius: BorderRadius.circular(16)),
@@ -34,29 +35,28 @@ ThemeData darkTheme = ThemeData(
     ),
     focusedBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(16),
-      borderSide: BorderSide(color: Color.fromRGBO(21, 184, 108, 1)),
+      borderSide: BorderSide(color: Color(0xFF15B86C)),
     ),
     hintStyle: TextStyle(
       fontSize: 16,
       fontFamily: 'Plus Jakarta Sans',
-      color: Color.fromRGBO(109, 109, 109, 1),
+      color: Color(0xFF9E9E9E),
     ),
-
     filled: true,
-    fillColor: Color.fromRGBO(40, 40, 40, 1),
+    fillColor: Colors.white,
   ),
   floatingActionButtonTheme: FloatingActionButtonThemeData(
-    backgroundColor: Color.fromRGBO(21, 184, 108, 1),
+    backgroundColor: Color(0xFF15B86C),
+    foregroundColor:Colors.black
   ),
   appBarTheme: AppBarTheme(
-    backgroundColor: Colors.black,
-    foregroundColor: Colors.white,
+    backgroundColor: Color(0xFFF6F7F9),
+    foregroundColor: Color(0xFF161F1B),
   ),
-
   switchTheme: SwitchThemeData(
     trackColor: WidgetStateProperty.resolveWith((status) {
       if (status.contains(WidgetState.selected)) {
-        return (Color.fromRGBO(21, 184, 108, 1));
+        return Color(0xFF15B86C);
       }
       return null;
     }),
@@ -64,14 +64,14 @@ ThemeData darkTheme = ThemeData(
   checkboxTheme: CheckboxThemeData(
     fillColor: WidgetStateProperty.resolveWith((status){
       if(status.contains(WidgetState.selected)){
-        return Color.fromRGBO(21, 184, 108, 1);
+        return Color(0xFF15B86C);
       }
       return null;
     }),
   ),
   bottomNavigationBarTheme: BottomNavigationBarThemeData(
-    backgroundColor: Color.fromRGBO(24, 24, 24, 1),
-    selectedItemColor: Color.fromRGBO(21, 184, 108, 1),
-    unselectedItemColor: Colors.white,
+    backgroundColor: Color(0xFFF6F7F9),
+    selectedItemColor: Color(0xFF15B86C),
+    unselectedItemColor: Color(0xFF3A4640),
   ),
 );
