@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
@@ -22,13 +24,20 @@ class Homescreen extends StatelessWidget {
         padding: const EdgeInsets.all(16),
         child: ListView(
           children: [
-            SizedBox(height: 30),
             Row(
               spacing: 15,
               children: [
-                CircleAvatar(
-                  radius: 21,
-                  child: Image.asset('assets/images/personalAvatar.png'),
+                ValueListenableBuilder(
+                  valueListenable: UserController.userImageNotifier,
+                  builder: (_, profileImagePath, _) {
+                    return CircleAvatar(
+                      radius: 21,
+                      backgroundImage: profileImagePath == null
+                          ? AssetImage('assets/images/user.png')
+                          : FileImage(File(profileImagePath)),
+                      backgroundColor: Theme.of(context).colorScheme.secondary,
+                    );
+                  },
                 ),
 
                 SizedBox(
@@ -96,11 +105,11 @@ class Homescreen extends StatelessWidget {
               ],
             ),
             AchievedTasksWidget(),
-            SizedBox(height: 8,),
+            SizedBox(height: 8),
             PrioritTasksWidget(),
-            SizedBox(height: 24,),
+            SizedBox(height: 24),
             Text('My Tasks', style: Theme.of(context).textTheme.displayLarge),
-            SizedBox(height: 16,),
+            SizedBox(height: 16),
             CustomTasksList(myTasks: myTasks),
             SizedBox(height: 55),
           ],

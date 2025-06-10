@@ -2,31 +2,16 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:tasky_app/constants.dart';
-import 'package:tasky_app/services/preferences_manager.dart';
+import 'package:tasky_app/controllers/user_controller.dart';
 
-class ProfileImageWidget extends StatefulWidget {
+class ProfileImageWidget extends StatelessWidget{
   const ProfileImageWidget({super.key});
 
-  @override
-  State<ProfileImageWidget> createState() => _ProfileImageWidgetState();
-}
-
-class _ProfileImageWidgetState extends State<ProfileImageWidget> {
-  static final prefs = PreferencesManager();
-  String? profileImagePath;
-
-  @override
-  void initState() {
-    super.initState();
-    profileImagePath = prefs.getString(StorageKey.userImage);
-  }
-
+  
   Future<void> _saveImage(XFile file) async {
     final appDir = await getApplicationDocumentsDirectory();
     final newFile = await File(file.path).copy('${appDir.path}/${file.name}');
-    prefs.setString(StorageKey.userImage, newFile.path);
-    profileImagePath = newFile.path;
+    UserController.setUserImage(newFile.path);
   }
 
   void _showImageSourceDialog(
@@ -87,40 +72,43 @@ class _ProfileImageWidgetState extends State<ProfileImageWidget> {
 
   @override
   Widget build(BuildContext context) {
-    //sprefs.remove(StorageKey.userImage);
-    return CircleAvatar(
-      backgroundImage: profileImagePath == null
-          ? AssetImage('assets/images/user.png')
-          : FileImage(File(profileImagePath!)),
-      backgroundColor: Theme.of(context).colorScheme.secondary,
-      radius: 50,
-      child: Padding(
-        padding: const EdgeInsets.only(left: 60, top: 60),
-        child: GestureDetector(
-          onTap: () {
-            _showImageSourceDialog(context, (XFile file) async {
-              await _saveImage(file);
-              setState(() {});
-            });
-          },
-          child: Container(
-            width: 90,
-            height: 90,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              border: BoxBorder.all(
-                color: Theme.of(context).colorScheme.secondary,
+    return ValueListenableBuilder(
+      valueListenable: UserController.userImageNotifier,
+      builder: (_, profileImagePath, _) {
+        return CircleAvatar(
+          backgroundImage: profileImagePath == null
+              ? AssetImage('assets/images/user.png')
+              : FileImage(File(profileImagePath)),
+          backgroundColor: Theme.of(context).colorScheme.secondary,
+          radius: 50,
+          child: Padding(
+            padding: const EdgeInsets.only(left: 60, top: 60),
+            child: GestureDetector(
+              onTap: () {
+                _showImageSourceDialog(context, (XFile file) async {
+                  await _saveImage(file);
+                });
+              },
+              child: Container(
+                width: 90,
+                height: 90,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  border: BoxBorder.all(
+                    color: Theme.of(context).colorScheme.secondary,
+                  ),
+                  borderRadius: BorderRadius.circular(50),
+                ),
+                child: Icon(
+                  Icons.camera_alt_outlined,
+                  size: 26,
+                  color: Colors.black,
+                ),
               ),
-              borderRadius: BorderRadius.circular(50),
-            ),
-            child: Icon(
-              Icons.camera_alt_outlined,
-              size: 26,
-              color: Colors.black,
             ),
           ),
-        ),
-      ),
+        );
+      }
     );
   }
 }

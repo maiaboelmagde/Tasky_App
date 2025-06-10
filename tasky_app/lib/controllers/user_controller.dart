@@ -24,4 +24,13 @@ class UserController {
     motifationQuote.value = value;
     prefs.setString(StorageKey.motivationQuote, value);
   }
+
+  static final ValueNotifier<String?> userImageNotifier = ValueNotifier<String?>(
+    prefs.getString(StorageKey.userImage),
+  );
+
+  static setUserImage(String value){
+    userImageNotifier.value = value;
+    prefs.setString(StorageKey.userImage, value);
+  }
 }
