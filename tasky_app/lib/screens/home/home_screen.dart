@@ -1,57 +1,22 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
 import 'package:tasky_app/components/custom_tasks_list.dart';
-import 'package:tasky_app/constants.dart';
-import 'package:tasky_app/models/task_model.dart';
+import 'package:tasky_app/controllers/tasks_controller.dart';
 import 'package:tasky_app/screens/home/components/achieved_tasks_widget.dart';
+import 'package:tasky_app/screens/home/components/priority_tasks_widget.dart';
 import 'package:tasky_app/screens/new_task_screen.dart';
-import 'package:tasky_app/services/preferences_manager.dart';
 import 'package:tasky_app/controllers/user_controller.dart';
 import 'package:tasky_app/theme/theme_controller.dart';
 
-class Homescreen extends StatefulWidget {
+class Homescreen extends StatelessWidget {
   const Homescreen({super.key});
 
   @override
-  State<Homescreen> createState() => _HomescreenState();
-}
-
-class _HomescreenState extends State<Homescreen> {
-  List<TaskModel> myTasks = [];
-  int totalTask =0;
-  int totalCompletedTasks=0;
-  double completedTasksPercentage = 0;
-
-  @override
-  void initState() {
-    super.initState();
-    _getUserNameAndTasks();
-  }
-
-  _getUserNameAndTasks() async {
-    myTasks = [];
-    PreferencesManager preferencesManager = PreferencesManager();
-    //tasks
-    String? tasks = preferencesManager.getString(StorageKey.tasksList);
-    if (tasks != null) {
-      final tasksDecoded = jsonDecode(tasks) as List<dynamic>;
-      setState(() {
-        myTasks = tasksDecoded.map((task) => TaskModel.fromMap(task)).toList();
-      });
-    }
-
-    _calculateCompletedPercentage();
-  }
-
-
-  _calculateCompletedPercentage(){
-    totalTask = myTasks.length;
-    totalCompletedTasks = myTasks.where((task)=>task.isCompleted == true).length;
-    completedTasksPercentage = (totalCompletedTasks/totalTask);
-  }
-  @override
   Widget build(BuildContext context) {
+    final taskProvider = Provider.of<TaskProvider>(context);
+    final myTasks = taskProvider.tasks;
+
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(16),
@@ -78,7 +43,7 @@ class _HomescreenState extends State<Homescreen> {
                             'Good Evening ,$value ',
                             style: Theme.of(context).textTheme.displayMedium,
                           );
-                        }
+                        },
                       ),
                       ValueListenableBuilder(
                         valueListenable: UserController.motifationQuote,
@@ -87,7 +52,7 @@ class _HomescreenState extends State<Homescreen> {
                             value,
                             style: Theme.of(context).textTheme.bodySmall,
                           );
-                        }
+                        },
                       ),
                     ],
                   ),
@@ -102,15 +67,14 @@ class _HomescreenState extends State<Homescreen> {
                       borderRadius: BorderRadius.circular(100),
                       color: Theme.of(context).colorScheme.primaryContainer,
                     ),
-                    child: 
-                    ValueListenableBuilder(
+                    child: ValueListenableBuilder(
                       valueListenable: ThemeController.themeNotifier,
                       builder: (context, value, child) {
-                        if(ThemeController.isDark()) {
+                        if (ThemeController.isDark()) {
                           return Image.asset('assets/images/sun.png');
                         }
                         return Icon(Icons.dark_mode_outlined);
-                      }
+                      },
                     ),
                   ),
                 ),
@@ -131,20 +95,14 @@ class _HomescreenState extends State<Homescreen> {
                 SvgPicture.asset('assets/images/waving.svg'),
               ],
             ),
-            AchievedTasksWidget(totalDoneTasks: totalCompletedTasks, totalTask: totalTask, percent: completedTasksPercentage),
-            Container(
-              height: 150,
-              margin: EdgeInsets.symmetric(vertical: 4),
-              padding: EdgeInsets.only(right: 12, left: 4),
-              decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.primaryContainer,
-                borderRadius: BorderRadius.circular(20),
-              ),
-            ),
-
+            AchievedTasksWidget(),
+            SizedBox(height: 8,),
+            PrioritTasksWidget(),
+            SizedBox(height: 24,),
             Text('My Tasks', style: Theme.of(context).textTheme.displayLarge),
+            SizedBox(height: 16,),
             CustomTasksList(myTasks: myTasks),
-            SizedBox(height: 55,)
+            SizedBox(height: 55),
           ],
         ),
       ),
@@ -154,14 +112,7 @@ class _HomescreenState extends State<Homescreen> {
         child: FloatingActionButton(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15),
-            child: Row(
-              children: [
-                Icon(Icons.add),
-                Text(
-                  'Add New Task',
-                ),
-              ],
-            ),
+            child: Row(children: [Icon(Icons.add), Text('Add New Task')]),
           ),
           onPressed: () async {
             await Navigator.push(
@@ -172,7 +123,6 @@ class _HomescreenState extends State<Homescreen> {
                 },
               ),
             );
-            _getUserNameAndTasks();
           },
         ),
       ),

@@ -1,21 +1,22 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:tasky_app/controllers/tasks_controller.dart';
 
 class AchievedTasksWidget extends StatelessWidget {
   const AchievedTasksWidget({
     super.key,
-    required this.totalDoneTasks,
-    required this.totalTask,
-    required this.percent,
+   
   });
 
-  final int totalDoneTasks;
-  final int totalTask;
-  final double percent;
 
   @override
   Widget build(BuildContext context) {
+    final taskProvider = Provider.of<TaskProvider>(context);
+    final totalTask = taskProvider.tasks.length;
+    final totalCompletedTasks = taskProvider.tasks.where((t) => t.isCompleted).length;
+    final completedTasksPercentage = taskProvider.completedPercentage;
     return  Container(
           width: double.infinity,
           decoration: BoxDecoration(
@@ -35,7 +36,7 @@ class AchievedTasksWidget extends StatelessWidget {
                   ),
                   SizedBox(height: 4),
                   Text(
-                    '${totalDoneTasks} Out of ${totalTask} Done',
+                    '$totalCompletedTasks Out of $totalTask Done',
                     style: Theme.of(context).textTheme.titleSmall,
                   ),
                 ],
@@ -44,12 +45,12 @@ class AchievedTasksWidget extends StatelessWidget {
                 alignment: Alignment.center,
                 children: [
                   Transform.rotate(
-                    angle: -pi / 2,
+                    angle: -pi/2,
                     child: SizedBox(
                       height: 48,
                       width: 48,
                       child: CircularProgressIndicator(
-                        value: percent,
+                        value: completedTasksPercentage,
                         backgroundColor: Color(0xFF6D6D6D),
                         valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF15B86C)),
                         strokeWidth: 4,
@@ -57,7 +58,7 @@ class AchievedTasksWidget extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    "${((percent * 100).toInt())}%",
+                    "${((completedTasksPercentage * 100).toInt())}%",
                     style: Theme.of(context).textTheme.titleMedium,
                   )
                 ],

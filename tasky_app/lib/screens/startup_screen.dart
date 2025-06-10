@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tasky_app/components/custom_text_form_field.dart';
-import 'package:tasky_app/constants.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tasky_app/controllers/user_controller.dart';
 import 'package:tasky_app/screens/main_screen.dart';
 
 class StartupScreen extends StatelessWidget {
@@ -76,11 +75,7 @@ class StartupScreen extends StatelessWidget {
                 child: ElevatedButton(
                   onPressed: () async {
                     if (_formKey.currentState!.validate()) {
-                      final prefs = await SharedPreferences.getInstance();
-                      await prefs.setString(
-                        StorageKey.userName,
-                        _nameController.text,
-                      );
+                      UserController.setUserName(_nameController.text);
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(

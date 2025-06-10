@@ -1,9 +1,7 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:provider/provider.dart';
 import 'package:tasky_app/components/custom_text_form_field.dart';
-import 'package:tasky_app/constants.dart';
+import 'package:tasky_app/controllers/tasks_controller.dart';
 import 'package:tasky_app/models/task_model.dart';
 
 class NewTaskScreen extends StatefulWidget {
@@ -21,6 +19,8 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final tasksProvider = Provider.of<TaskProvider>(context);
+    List<TaskModel> myTasks = tasksProvider.tasks;
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
@@ -81,16 +81,6 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
                       child: ElevatedButton.icon(
                         onPressed: () async {
                           if (_formKey.currentState?.validate() ?? false) {
-                            SharedPreferences pref =
-                                await SharedPreferences.getInstance();
-                            String? localTasks = pref.getString(
-                              StorageKey.tasksList,
-                            );
-                            List<dynamic> myTasks = [];
-                            if (localTasks != null) {
-                              myTasks = jsonDecode(localTasks);
-                            }
-
                             TaskModel newTask = TaskModel(
                               id: myTasks.length + 1,
                               taskTitle: _titleController.text,
@@ -98,13 +88,8 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
                               isHighPriority: isHighPtiority,
                               isCompleted: false,
                             );
+                            tasksProvider.addTask(newTask);
 
-                            myTasks.add(newTask.toMap());
-
-                            pref.setString(
-                              StorageKey.tasksList,
-                              jsonEncode(myTasks),
-                            );
                             Navigator.pop(context);
 
                             _titleController.text = '';

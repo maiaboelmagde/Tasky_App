@@ -6,8 +6,10 @@ ThemeData darkTheme = ThemeData(
   scaffoldBackgroundColor: Colors.black,
   splashColor: Colors.black,
   colorScheme: ColorScheme.dark(
+    primary: Color(0xFF15B86C),
     primaryContainer: Color(0xFF282828),
     secondary: Color(0XFFC6C6C6),
+    onSecondary: Color( 0xFFA0A0A0)
   ),
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ButtonStyle(

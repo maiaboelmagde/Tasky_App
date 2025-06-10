@@ -7,8 +7,10 @@ ThemeData lightTheme = ThemeData(
   scaffoldBackgroundColor: Color(0xFFECEDEF),
   splashColor: Color(0xFFF6F7F9),
   colorScheme: ColorScheme.light(
+    primary: Color(0xFF15B86C),
     primaryContainer: Colors.white,
-    secondary: Color(0xFF3A4640),
+    secondary: Color.fromARGB(255, 81, 82, 82),
+    onSecondary: Color(0xFFA0A0A0),
   ),
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ButtonStyle(
