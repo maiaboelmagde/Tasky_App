@@ -48,6 +48,8 @@ ThemeData darkTheme = ThemeData(
   ),
   floatingActionButtonTheme: FloatingActionButtonThemeData(
     backgroundColor: Color.fromRGBO(21, 184, 108, 1),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
+
   ),
   appBarTheme: AppBarTheme(
     backgroundColor: Colors.black,

@@ -3,7 +3,7 @@ import 'package:tasky_app/constants.dart';
 import 'package:tasky_app/screens/profile/widgets/edit_personal_info.dart';
 import 'package:tasky_app/screens/profile/widgets/profile_image_widget.dart';
 import 'package:tasky_app/screens/startup_screen.dart';
-import 'package:tasky_app/services/user_controller.dart';
+import 'package:tasky_app/controllers/user_controller.dart';
 import 'package:tasky_app/theme/theme_controller.dart';
 
 class ProfileScreen extends StatelessWidget {

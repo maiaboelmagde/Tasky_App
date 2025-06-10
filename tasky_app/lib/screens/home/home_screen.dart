@@ -7,7 +7,7 @@ import 'package:tasky_app/models/task_model.dart';
 import 'package:tasky_app/screens/home/components/achieved_tasks_widget.dart';
 import 'package:tasky_app/screens/new_task_screen.dart';
 import 'package:tasky_app/services/preferences_manager.dart';
-import 'package:tasky_app/services/user_controller.dart';
+import 'package:tasky_app/controllers/user_controller.dart';
 import 'package:tasky_app/theme/theme_controller.dart';
 
 class Homescreen extends StatefulWidget {
