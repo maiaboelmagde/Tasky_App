@@ -76,7 +76,7 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
                     ),
 
                     Spacer(flex: 1),
-                    Container(
+                    SizedBox(
                       width: double.infinity,
                       child: ElevatedButton.icon(
                         onPressed: () async {

@@ -12,6 +12,14 @@ ThemeData lightTheme = ThemeData(
     secondary: Color.fromARGB(255, 81, 82, 82),
     onSecondary: Color(0xFFA0A0A0),
   ),
+  outlinedButtonTheme: OutlinedButtonThemeData(
+    style: OutlinedButton.styleFrom(
+      shape: CircleBorder(),
+      padding: EdgeInsets.all(12),
+      side: BorderSide(color: Colors.grey),
+      foregroundColor: Colors.black,
+    ),
+  ),
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ButtonStyle(
       backgroundColor: WidgetStatePropertyAll(Color(0xFF15B86C)),

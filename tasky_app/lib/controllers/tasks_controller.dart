@@ -7,10 +7,8 @@ import 'package:tasky_app/services/preferences_manager.dart';
 class TaskProvider extends ChangeNotifier {
   bool _isLoading = false;
   List<TaskModel> _tasks = [];
-  
- 
 
-  bool get isLoading =>_isLoading;
+  bool get isLoading => _isLoading;
   List<TaskModel> get tasks => _tasks;
   List<TaskModel> get completedTasks =>
       _tasks.where((task) => task.isCompleted).toList();
@@ -18,7 +16,6 @@ class TaskProvider extends ChangeNotifier {
       _tasks.where((task) => task.isHighPriority).toList();
   List<TaskModel> get toDoTasks =>
       _tasks.where((task) => !task.isCompleted).toList();
-
 
   double get completedPercentage {
     if (_tasks.isEmpty) return 0;
@@ -57,6 +54,31 @@ class TaskProvider extends ChangeNotifier {
 
   Future<void> deleteTask(int taskId) async {
     _tasks.removeWhere((t) => t.id == taskId);
+    await _saveToPrefs();
+    notifyListeners();
+  }
+
+  Future<void> editTask({
+    required int taskId,
+    required String taskTitle,
+    required String? taskDescription,
+    required bool isHighPriority,
+  }
+    
+  ) async {
+    _tasks = _tasks
+        .map(
+          (t) => t.id == taskId
+              ? TaskModel(
+                  id: t.id,
+                  taskTitle: taskTitle,
+                  taskDescription: taskDescription ?? '',
+                  isHighPriority: isHighPriority,
+                  isCompleted: t.isCompleted,
+                )
+              : t,
+        )
+        .toList();
     await _saveToPrefs();
     notifyListeners();
   }
