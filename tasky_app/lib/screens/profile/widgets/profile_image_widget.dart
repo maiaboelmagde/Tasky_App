@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:tasky_app/controllers/user_controller.dart';
+import 'package:tasky_app/core/controllers/user_controller.dart';
 
 class ProfileImageWidget extends StatelessWidget{
   const ProfileImageWidget({super.key});

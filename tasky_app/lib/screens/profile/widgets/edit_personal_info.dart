@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tasky_app/components/custom_text_form_field.dart';
-import 'package:tasky_app/controllers/user_controller.dart';
+import 'package:tasky_app/core/components/custom_text_form_field.dart';
+import 'package:tasky_app/core/controllers/user_controller.dart';
 
 class EditUserDetails extends StatelessWidget {
   EditUserDetails({super.key}) {

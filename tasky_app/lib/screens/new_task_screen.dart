@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tasky_app/components/custom_text_form_field.dart';
-import 'package:tasky_app/controllers/tasks_controller.dart';
+import 'package:tasky_app/core/components/custom_text_form_field.dart';
+import 'package:tasky_app/core/controllers/tasks_controller.dart';
 import 'package:tasky_app/models/task_model.dart';
 
 class NewTaskScreen extends StatefulWidget {

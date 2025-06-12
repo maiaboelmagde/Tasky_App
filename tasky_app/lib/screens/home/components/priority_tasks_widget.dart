@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tasky_app/controllers/tasks_controller.dart';
+import 'package:tasky_app/core/controllers/tasks_controller.dart';
 import 'package:tasky_app/models/task_model.dart';
 import 'package:tasky_app/screens/high_priority_tasks_screen.dart';
 

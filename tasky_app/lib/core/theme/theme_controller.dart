@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tasky_app/constants.dart';
-import 'package:tasky_app/services/preferences_manager.dart';
+import 'package:tasky_app/core/constants/StorageKey.dart';
+import 'package:tasky_app/core/services/preferences_manager.dart';
 
 class ThemeController {
   static final ValueNotifier<ThemeMode> themeNotifier = ValueNotifier(ThemeMode.dark);

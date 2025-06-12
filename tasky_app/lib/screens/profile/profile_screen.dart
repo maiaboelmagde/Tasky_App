@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:tasky_app/controllers/tasks_controller.dart';
+import 'package:tasky_app/core/controllers/tasks_controller.dart';
 import 'package:tasky_app/screens/profile/widgets/edit_personal_info.dart';
 import 'package:tasky_app/screens/profile/widgets/profile_image_widget.dart';
 import 'package:tasky_app/screens/startup_screen.dart';
-import 'package:tasky_app/controllers/user_controller.dart';
-import 'package:tasky_app/theme/theme_controller.dart';
+import 'package:tasky_app/core/controllers/user_controller.dart';
+import 'package:tasky_app/core/theme/theme_controller.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});

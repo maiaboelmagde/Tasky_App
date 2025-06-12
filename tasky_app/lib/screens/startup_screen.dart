@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:tasky_app/components/custom_text_form_field.dart';
-import 'package:tasky_app/controllers/user_controller.dart';
+import 'package:tasky_app/core/components/custom_text_form_field.dart';
+import 'package:tasky_app/core/controllers/user_controller.dart';
 import 'package:tasky_app/screens/main_screen.dart';
 
 class StartupScreen extends StatelessWidget {

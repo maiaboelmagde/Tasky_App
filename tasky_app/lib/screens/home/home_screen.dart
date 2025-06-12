@@ -2,13 +2,13 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tasky_app/components/custom_tasks_list.dart';
-import 'package:tasky_app/controllers/tasks_controller.dart';
+import 'package:tasky_app/core/components/custom_tasks_list.dart';
+import 'package:tasky_app/core/controllers/tasks_controller.dart';
 import 'package:tasky_app/screens/home/components/achieved_tasks_widget.dart';
 import 'package:tasky_app/screens/home/components/priority_tasks_widget.dart';
 import 'package:tasky_app/screens/new_task_screen.dart';
-import 'package:tasky_app/controllers/user_controller.dart';
-import 'package:tasky_app/theme/theme_controller.dart';
+import 'package:tasky_app/core/controllers/user_controller.dart';
+import 'package:tasky_app/core/theme/theme_controller.dart';
 
 class Homescreen extends StatelessWidget {
   const Homescreen({super.key});

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tasky_app/components/edit_task_component.dart';
-import 'package:tasky_app/controllers/tasks_controller.dart';
-import 'package:tasky_app/enums/task_item_actions_enum.dart';
+import 'package:tasky_app/core/components/edit_task_component.dart';
+import 'package:tasky_app/core/controllers/tasks_controller.dart';
+import 'package:tasky_app/core/enums/task_item_actions_enum.dart';
 import 'package:tasky_app/models/task_model.dart';
-import 'package:tasky_app/theme/theme_controller.dart';
+import 'package:tasky_app/core/theme/theme_controller.dart';
 
 class CustomTaskComponent extends StatelessWidget {
   const CustomTaskComponent({super.key, required this.curTask});

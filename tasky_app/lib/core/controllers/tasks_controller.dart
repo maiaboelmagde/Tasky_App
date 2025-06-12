@@ -1,8 +1,8 @@
 import 'dart:convert';
 import 'package:flutter/foundation.dart';
-import 'package:tasky_app/constants.dart';
+import 'package:tasky_app/core/constants/StorageKey.dart';
 import 'package:tasky_app/models/task_model.dart';
-import 'package:tasky_app/services/preferences_manager.dart';
+import 'package:tasky_app/core/services/preferences_manager.dart';
 
 class TaskProvider extends ChangeNotifier {
   bool _isLoading = false;
