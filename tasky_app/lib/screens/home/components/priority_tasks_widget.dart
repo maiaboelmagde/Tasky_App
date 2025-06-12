@@ -41,65 +41,72 @@ class PrioritTasksWidget extends StatelessWidget {
 
                     children: [
                       Expanded(
-                        child: Column(
-                          children: List.generate(
-                            highPriorityTasks.length > 4
-                                ? 4
-                                : highPriorityTasks.length,
-                            (index) {
-                              final task = highPriorityTasks[index];
-                              return Padding(
-                                padding: const EdgeInsets.only(top: 8),
-                                child: Row(
-                                  children: [
-                                    SizedBox(
-                                      height: 24,
-                                      width: 24,
-                                      child: Checkbox(
-                                        value: task.isCompleted,
-                                        onChanged: (newValue) {
-                                          taskProvider.toggleComplete(task.id);
-                                        },
+                        child: SizedBox(
+                          height: 130,
+                          child: Column(
+                            children: List.generate(
+                              highPriorityTasks.length > 4
+                                  ? 4
+                                  : highPriorityTasks.length,
+                              (index) {
+                                final task = highPriorityTasks[index];
+                                return Padding(
+                                  padding: const EdgeInsets.only(top: 8),
+                                  child: Row(
+                                    children: [
+                                      SizedBox(
+                                        height: 24,
+                                        width: 24,
+                                        child: Checkbox(
+                                          value: task.isCompleted,
+                                          onChanged: (newValue) {
+                                            taskProvider.toggleComplete(task.id);
+                                          },
+                                        ),
                                       ),
-                                    ),
-                                    SizedBox(width: 10),
-                                    Expanded(
-                                      child: Text(
-                                        task.taskTitle,
-                                        style: task.isCompleted
-                                            ? Theme.of(context)
-                                                  .textTheme
-                                                  .displayMedium
-                                                  ?.copyWith(
-                                                    decoration: TextDecoration
-                                                        .lineThrough,
-                                                    color: Theme.of(
-                                                      context,
-                                                    ).colorScheme.onSecondary,
-                                                  )
-                                            : Theme.of(
-                                                context,
-                                              ).textTheme.displayMedium,
+                                      SizedBox(width: 10),
+                                      Expanded(
+                                        child: Text(
+                                          task.taskTitle,
+                                          style: task.isCompleted
+                                              ? Theme.of(context)
+                                                    .textTheme
+                                                    .displayMedium
+                                                    ?.copyWith(
+                                                      decoration: TextDecoration
+                                                          .lineThrough,
+                                                      color: Theme.of(
+                                                        context,
+                                                      ).colorScheme.onSecondary,
+                                                    )
+                                              : Theme.of(
+                                                  context,
+                                                ).textTheme.displayMedium,
+                                        ),
                                       ),
-                                    ),
-                                  ],
-                                ),
-                              );
-                            },
+                                    ],
+                                  ),
+                                );
+                              },
+                            ),
                           ),
                         ),
                       ),
-                      OutlinedButton(
-                        
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => HighPriorityTasksScreen(),
-                            ),
-                          );
-                        },
-                        child: Icon(Icons.arrow_outward),
+                      Container(
+                        height: 100,
+                        alignment: Alignment.bottomCenter,
+                        child: OutlinedButton(
+                          
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => HighPriorityTasksScreen(),
+                              ),
+                            );
+                          },
+                          child: Icon(Icons.arrow_outward),
+                        ),
                       ),
                     ],
                   ),

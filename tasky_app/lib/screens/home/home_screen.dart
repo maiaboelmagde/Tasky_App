@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:tasky_app/components/custom_tasks_list.dart';
 import 'package:tasky_app/controllers/tasks_controller.dart';
@@ -90,20 +89,27 @@ class Homescreen extends StatelessWidget {
               ],
             ),
             SizedBox(height: 24),
-            Text(
-              'Yuhuu ,Your work Is ',
-              style: Theme.of(context).textTheme.headlineLarge,
-            ),
-            Row(
-              spacing: 20,
-              children: [
-                Text(
-                  'almost done !',
-                  style: Theme.of(context).textTheme.headlineLarge,
-                ),
-                SvgPicture.asset('assets/images/waving.svg'),
-              ],
-            ),
+
+            myTasks.isEmpty
+                ? Text(
+                    "Let's start ..♡",
+                    style: Theme.of(context).textTheme.headlineLarge,
+                  )
+                : taskProvider.completedPercentage == 1
+                ? Text(
+                    'Well Done .. 🎉',
+                    style: Theme.of(context).textTheme.headlineLarge,
+                  )
+                : taskProvider.completedPercentage >= 0.5
+                ? Text(
+                    'Yuhuu ,Your work Is almost done ! 👋🏻',
+                    style: Theme.of(context).textTheme.headlineLarge,
+                  )
+                : Text(
+                    'Keep going..♡ ̆̈',
+                    style: Theme.of(context).textTheme.headlineLarge,
+                  ),
+            SizedBox(height: 5),
             AchievedTasksWidget(),
             SizedBox(height: 8),
             PrioritTasksWidget(),

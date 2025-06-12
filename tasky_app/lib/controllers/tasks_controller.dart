@@ -6,7 +6,9 @@ import 'package:tasky_app/services/preferences_manager.dart';
 
 class TaskProvider extends ChangeNotifier {
   bool _isLoading = false;
-  List<TaskModel> _tasks = [];
+  static List<TaskModel> _tasks = [];
+  final _prefs = PreferencesManager();
+
 
   bool get isLoading => _isLoading;
   List<TaskModel> get tasks => _tasks;
@@ -26,8 +28,7 @@ class TaskProvider extends ChangeNotifier {
   Future<void> loadTasks() async {
     _isLoading = true;
     notifyListeners();
-    final prefs = PreferencesManager();
-    String? tasksString = prefs.getString(StorageKey.tasksList);
+    String? tasksString = _prefs.getString(StorageKey.tasksList);
 
     if (tasksString != null) {
       final decoded = jsonDecode(tasksString) as List;
@@ -84,8 +85,12 @@ class TaskProvider extends ChangeNotifier {
   }
 
   Future<void> _saveToPrefs() async {
-    final prefs = PreferencesManager();
     final encoded = jsonEncode(_tasks.map((e) => e.toMap()).toList());
-    await prefs.setString(StorageKey.tasksList, encoded);
+    await _prefs.setString(StorageKey.tasksList, encoded);
+  }
+
+  static reset(){
+    _tasks = [];
+    PreferencesManager().remove(StorageKey.tasksList);
   }
 }

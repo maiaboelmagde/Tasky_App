@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tasky_app/constants.dart';
+import 'package:tasky_app/controllers/tasks_controller.dart';
 import 'package:tasky_app/screens/profile/widgets/edit_personal_info.dart';
 import 'package:tasky_app/screens/profile/widgets/profile_image_widget.dart';
 import 'package:tasky_app/screens/startup_screen.dart';
@@ -80,8 +80,9 @@ class ProfileScreen extends StatelessWidget {
               title: Text('Log out'),
               trailing: Icon(Icons.navigate_next),
               onTap: () async {
-                prefs.remove(StorageKey.userName);
-                prefs.remove(StorageKey.motivationQuote);
+                TaskProvider.reset();
+                UserController.reset();
+                
                 Navigator.of(context).pushReplacement(
                   MaterialPageRoute(builder: (context) => StartupScreen()),
                 );

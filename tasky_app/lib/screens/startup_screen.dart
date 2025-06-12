@@ -14,82 +14,85 @@ class StartupScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Form(
-          key: _formKey,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              SizedBox(height: 52),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                spacing: 16,
-                children: [
-                  SvgPicture.asset('assets/images/logo.svg'),
-                  Text(
-                    'Tasky',
-                    style: Theme.of(context).textTheme.displayLarge,
-                  ),
-                ],
-              ),
-
-              SizedBox(height: 118),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'Welcome To Tasky ',
-                    style: Theme.of(context).textTheme.displayLarge,
-                  ),
-                  SvgPicture.asset('assets/images/waving.svg'),
-                ],
-              ),
-              SizedBox(height: 8),
-
-              Text(
-                'Your productivity journey starts here.',
-                style: Theme.of(context).textTheme.displayMedium,
-              ),
-              SizedBox(height: 24),
-              SvgPicture.asset(
-                'assets/images/pana.svg',
-                width: 215,
-                height: 205,
-              ),
-              SizedBox(height: 28),
-              CustomTextFormField(
-                title: 'Full Name',
-                hintText: 'e.g. Sarah Khalid',
-                controller: _nameController,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter your name';
-                  }
-                  return null;
-                },
-              ),
-              
-              SizedBox(height: 24),
-              SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: () async {
-                    if (_formKey.currentState!.validate()) {
-                      UserController.setUserName(_nameController.text);
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) {
-                            return MainScreen();
-                          },
-                        ),
-                      );
-                    }
-                  },
-                  child: Text('Let’s Get Started'),
+      body: Padding(
+        padding: const EdgeInsets.all(16),
+        child: SingleChildScrollView(
+          child: Form(
+            key: _formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SizedBox(height: 52),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  spacing: 16,
+                  children: [
+                    SvgPicture.asset('assets/images/logo.svg'),
+                    Text(
+                      'Tasky',
+                      style: Theme.of(context).textTheme.displayLarge,
+                    ),
+                  ],
                 ),
-              ),
-            ],
+        
+                SizedBox(height: 118),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Welcome To Tasky ',
+                      style: Theme.of(context).textTheme.displayLarge,
+                    ),
+                    SvgPicture.asset('assets/images/waving.svg'),
+                  ],
+                ),
+                SizedBox(height: 8),
+        
+                Text(
+                  'Your productivity journey starts here.',
+                  style: Theme.of(context).textTheme.displayMedium,
+                ),
+                SizedBox(height: 24),
+                SvgPicture.asset(
+                  'assets/images/pana.svg',
+                  width: 215,
+                  height: 205,
+                ),
+                SizedBox(height: 28),
+                CustomTextFormField(
+                  title: 'Full Name',
+                  hintText: 'e.g. Sarah Khalid',
+                  controller: _nameController,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter your name';
+                    }
+                    return null;
+                  },
+                ),
+                
+                SizedBox(height: 24),
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: () async {
+                      if (_formKey.currentState!.validate()) {
+                        UserController.setUserName(_nameController.text);
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return MainScreen();
+                            },
+                          ),
+                        );
+                      }
+                    },
+                    child: Text('Let’s Get Started'),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
